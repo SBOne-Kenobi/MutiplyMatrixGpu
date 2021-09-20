@@ -32,7 +32,7 @@ jobs:
           DOTNET_ROOT: ${{ runner.tool_cache }}/dncs/${{ matrix.dotnet }}/x64
           CI: true
     - name: CheckDevices
-      run: dotnet run --project CheckDevices
+      run: dotnet run --project src/CheckDevices
       env:
           DOTNET_ROOT: ${{ runner.tool_cache }}/dncs/${{ matrix.dotnet }}/x64
           CI: true
