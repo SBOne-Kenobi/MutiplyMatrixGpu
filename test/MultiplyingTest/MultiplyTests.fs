@@ -1,6 +1,7 @@
 module MultiplyingTest
 
 open System
+open Brahma.OpenCL
 open MatrixMultiplying
 open NUnit.Framework
 open Brahma.FSharp.OpenCL.Extensions
@@ -42,12 +43,12 @@ let SimpleTest() =
 let StressTest() =
     let provider, _, commandQueue, wgSize = GPU.Initialise None None
 
-    let iterations = 100
+    let iterations = 10
     let random = Random()
     for _ in 1..iterations do
-        let a = random.Next(50, 100)
-        let b = random.Next(50, 200)
-        let c = random.Next(50, 200)
+        let a = random.Next(30, 70)
+        let b = random.Next(30, 70)
+        let c = random.Next(30, 70)
         let m1 = GenerateRandomMatrix random a b
         let m2 = GenerateRandomMatrix random b c
         let _, kernelPrepare, kernelRun, ndRange =
