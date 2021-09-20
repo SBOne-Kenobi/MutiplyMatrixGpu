@@ -17,6 +17,8 @@ jobs:
         dotnet-version: 5.0.x
     - name: Install tools
       run: dotnet tool restore
+    - name: Install OpenCL Runtime
+      run: choco install opencl-intel-cpu-runtime
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
