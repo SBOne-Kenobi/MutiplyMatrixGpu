@@ -17,6 +17,12 @@ jobs:
         dotnet-version: 5.0.x
     - name: Install tools
       run: dotnet tool restore
+    - name: Install OpenCL
+      run : |
+          set NUGETDIR=C:\NUGET
+          nuget install opencl-nug -Version 0.777.77 -OutputDirectory %NUGETDIR%
+          dir %NUGETDIR%\opencl-nug.0.777.77\build\native\
+          set OCL_ROOT=%NUGETDIR%\opencl-nug.0.777.77\build\native
     - name: Install OpenCL Runtime
       run: choco install opencl-intel-cpu-runtime
     - name: Restore dependencies
@@ -26,13 +32,13 @@ jobs:
       env:
           DOTNET_ROOT: ${{ runner.tool_cache }}/dncs/${{ matrix.dotnet }}/x64
           CI: true
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: CheckDevices
+      run: dotnet run --project src/CheckDevices
       env:
           DOTNET_ROOT: ${{ runner.tool_cache }}/dncs/${{ matrix.dotnet }}/x64
           CI: true
-    - name: CheckDevices
-      run: dotnet run --project src/CheckDevices
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
       env:
           DOTNET_ROOT: ${{ runner.tool_cache }}/dncs/${{ matrix.dotnet }}/x64
           CI: true
