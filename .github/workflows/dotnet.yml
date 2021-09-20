@@ -30,7 +30,7 @@ jobs:
           DOTNET_ROOT: ${{ runner.tool_cache }}/dncs/${{ matrix.dotnet }}/x64
           CI: true
     - name: Run
-      run: dotnet run
+      run: dotnet run --project src
       env:
           DOTNET_ROOT: ${{ runner.tool_cache }}/dncs/${{ matrix.dotnet }}/x64
           CI: true
