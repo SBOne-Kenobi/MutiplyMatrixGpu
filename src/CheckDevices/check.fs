@@ -33,5 +33,5 @@ let GetAllDevices =
             yield! Cl.GetDeviceIDs(platform, DeviceType.All, &error)
     }
 
-let Main =
+let main =
     printfn $"All devices: %A{GetAllDevices |> Seq.map GetDeviceName}"
