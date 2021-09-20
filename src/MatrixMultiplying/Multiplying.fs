@@ -6,9 +6,7 @@ open Brahma.OpenCL
 open Brahma.FSharp.OpenCL.Core
 open Brahma.FSharp.OpenCL.Extensions
 
-let random = Random()
-
-let GenerateRandomMatrix rows cols =
+let GenerateRandomMatrix (random: Random) rows cols =
     Array.init (rows * cols) (fun _ -> float32 <| random.NextDouble())
 
 let GetResultMatrixDims aRows aCols bRows bCols =
@@ -116,9 +114,14 @@ module GPU =
         let cRows, cCols = GetResultMatrixDims aRows aCols bRows bCols
         let command = GetMultiplyCommand wgSize aRows aCols bRows bCols cRows cCols
         let kernel, kernelPrepare, kernelRun = provider.Compile command
-        let ndRange = _2D(RoundUp cRows wgSize, RoundUp cCols wgSize, wgSize, wgSize)
+        let ndRange = _2D(RoundUp cCols wgSize, RoundUp cRows wgSize, wgSize, wgSize)
         kernel, kernelPrepare, kernelRun, ndRange
 
+    let Release (provider: ComputeProvider) (commandQueue: CommandQueue) =
+        commandQueue.Dispose()
+        provider.CloseAllBuffers()
+        provider.Dispose()
+    
     let Run iterations (a:array<_>) aRows aCols (b:array<_>) bRows bCols =
         let cRows, cCols = GetResultMatrixDims aRows aCols bRows bCols
         let c = Array.zeroCreate(cRows * cCols)
@@ -131,18 +134,15 @@ module GPU =
         let time = IterateWithAvgTime iterations (fun _ -> commandQueue.Add(kernelRun()).Finish() |> ignore)
         commandQueue.Add(c.ToHost provider).Finish() |> ignore
         
+        Release provider commandQueue
         c, time
 
-    let Release (provider: ComputeProvider) (commandQueue: CommandQueue) =
-        commandQueue.Dispose()
-        provider.CloseAllBuffers()
-        provider.Dispose()
-
 let main =
+    let random = Random()
     let iterations = 100
     let size = 100
-    let m1 = GenerateRandomMatrix size size
-    let m2 = GenerateRandomMatrix size size
+    let m1 = GenerateRandomMatrix random size size
+    let m2 = GenerateRandomMatrix random size size
     
     printfn $"Multiplying matrices {size}x{size} {iterations} times on CPU"
     let cpuRes, cpuTime = CPU.Run iterations m1 size size m2 size size    
@@ -163,8 +163,8 @@ let main =
     
     let iterations = 100
     let size = 1000
-    let m1 = GenerateRandomMatrix size size
-    let m2 = GenerateRandomMatrix size size
+    let m1 = GenerateRandomMatrix random size size
+    let m2 = GenerateRandomMatrix random size size
     
     printfn $"Multiplying matrices {size}x{size} {iterations} times on GPU"
     let _, gpuTime = GPU.Run iterations m1 size size m2 size size
