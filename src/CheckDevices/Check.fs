@@ -1,4 +1,4 @@
-module MatrixMultiply
+module CheckDevices
 
 open System
 open OpenCL.Net

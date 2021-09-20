@@ -8,12 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Check.fs" />
+        <Compile Include="Multiplying.fs" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Brahma.FSharp" Version="1.1.5" />
       <PackageReference Include="FSharp.Quotations.Evaluator" Version="2.1.0" />
+      <PackageReference Include="FSharpx.Collections" Version="1.15.1" />
     </ItemGroup>
 
 </Project>

@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CheckDevices", "src\CheckDevices\CheckDevices.fsproj", "{F17242FC-BA74-4857-94A8-7D58D0284A21}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MatrixMultiplying", "src\MatrixMultiplying\MatrixMultiplying.fsproj", "{59900851-88DE-4F0D-9919-967E4921285F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{F17242FC-BA74-4857-94A8-7D58D0284A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F17242FC-BA74-4857-94A8-7D58D0284A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F17242FC-BA74-4857-94A8-7D58D0284A21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59900851-88DE-4F0D-9919-967E4921285F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59900851-88DE-4F0D-9919-967E4921285F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59900851-88DE-4F0D-9919-967E4921285F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59900851-88DE-4F0D-9919-967E4921285F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
