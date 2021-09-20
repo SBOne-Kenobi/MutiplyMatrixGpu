@@ -4,10 +4,16 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
         <WarnOn>3390;$(WarnOn)</WarnOn>
+        <NoWarn>NU1701</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs"/>
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Brahma.FSharp" Version="1.1.5" />
+      <PackageReference Include="FSharp.Quotations.Evaluator" Version="2.1.0" />
     </ItemGroup>
 
 </Project>
